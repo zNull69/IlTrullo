@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../config/db.php");
 require_once(__DIR__ . "/../common/header.php");
 
 if (isset($_POST['nome'])) {
-    $nome = $_POST['nome'];
+    $nome = mysqli_real_escape_string($conn, $_POST['nome']);
     mysqli_query($conn, "INSERT IGNORE INTO categorie(nome) VALUES('$nome')");
 }
 

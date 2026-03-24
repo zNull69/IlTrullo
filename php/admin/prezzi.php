@@ -9,14 +9,11 @@ if ($_POST) {
 $id = $_POST['prodotto'];
 $nuovo = $_POST['prezzo'];
 
-/* chiude prezzo attuale */
-mysqli_query($conn,"UPDATE prezzi 
-SET data_fine = NOW() 
-WHERE id_prodotto=$id AND data_fine IS NULL");
-
-/* inserisce nuovo prezzo */
+$now = date('Y-m-d H:i:s');
+mysqli_query($conn,"UPDATE prezzi SET data_fine='$now' 
+    WHERE id_prodotto=$id AND data_fine IS NULL");
 mysqli_query($conn,"INSERT INTO prezzi(id_prodotto,prezzo,data_inizio)
-VALUES($id,$nuovo,NOW())");
+    VALUES($id,$nuovo,'$now')");
 }
 ?>
 

@@ -45,5 +45,21 @@ $prodotti = mysqli_query($conn,"SELECT * FROM prodotti");
 
 <button class="btn btn-primary">Salva</button>
 </form>
+<?php
+$lista = mysqli_query($conn, "SELECT p.*, c.nome as categoria FROM prodotti p 
+    LEFT JOIN categorie c ON p.id_categoria=c.id");
+?>
+<table class="table mt-3">
+<tr><th>Nome</th><th>Tipo</th><th>Unità</th><th>Categoria</th></tr>
+<?php while($p = mysqli_fetch_assoc($lista)) { ?>
+<tr>
+    <td><?= htmlspecialchars($p['nome']) ?></td>
+    <td><?= $p['tipo'] ?></td>
+    <td><?= htmlspecialchars($p['unita']) ?></td>
+    <td><?= htmlspecialchars($p['categoria']) ?></td>
+</tr>
+<?php } ?>
+</table>
+<?php require_once("../common/footer.php"); ?>
 
 <?php require_once("../common/footer.php"); ?>

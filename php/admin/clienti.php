@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . "/../config/db.php");
-require_once(__DIR__ . "/../common/header.php");
+require_once("../common/header.php");
 
 if ($_POST) {
     $nome = $_POST['nome'];

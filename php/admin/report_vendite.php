@@ -5,19 +5,18 @@ require_once(__DIR__ . "/../common/header.php");
 $where = "1=1";
 
 if (!empty($_GET['prodotto'])) {
-    $where .= " AND r.id_prodotto=".$_GET['prodotto'];
+    $where .= " AND r.id_prodotto=".(int)$_GET['prodotto'];
 }
-
 if (!empty($_GET['cliente'])) {
-    $where .= " AND a.id_cliente=".$_GET['cliente'];
+    $where .= " AND a.id_cliente=".(int)$_GET['cliente'];
 }
-
 if (!empty($_GET['data_inizio'])) {
-    $where .= " AND a.data_acquisto >= '".$_GET['data_inizio']."'";
+    $d = mysqli_real_escape_string($conn, $_GET['data_inizio']);
+    $where .= " AND a.data_acquisto >= '$d'";
 }
-
 if (!empty($_GET['data_fine'])) {
-    $where .= " AND a.data_acquisto <= '".$_GET['data_fine']."'";
+    $d = mysqli_real_escape_string($conn, $_GET['data_fine']);
+    $where .= " AND a.data_acquisto <= '$d'";
 }
 
 $query = "

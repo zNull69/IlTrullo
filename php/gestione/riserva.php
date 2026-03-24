@@ -1,5 +1,6 @@
 <?php
 require_once("../config/db.php");
+require_once("../common/header.php");
 
 $id = $_POST['prodotto'];
 $qta = $_POST['quantita'];

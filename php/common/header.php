@@ -17,17 +17,17 @@ if (!isset($_SESSION['user'])) {
 <body>
 
 <nav class="navbar p-3">
-<a class="text-white" href="/php/admin/dashboard.php">Dashboard</a>
-
-<div>
-<a href="/php/admin/prodotti.php" class="text-white me-2">Prodotti</a>
-<a href="/php/admin/categorie.php" class="text-white me-2">Categorie</a>
-<a href="/php/admin/clienti.php" class="text-white me-2">Clienti</a>
-<a href="/php/vendite/vendita.php" class="text-white me-2">Vendita</a>
-<a href="/php/admin/report_vendite.php" class="text-white me-2">Report</a>
-<a href="/php/auth/logout.php" class="text-white">Logout</a>
-</div>
-
+    <a class="text-white" href="/php/admin/dashboard.php">Dashboard</a>
+    <div>
+    <a href="/php/admin/prodotti.php" class="text-white me-2">Prodotti</a>
+    <a href="/php/admin/categorie.php" class="text-white me-2">Categorie</a>
+    <a href="/php/admin/clienti.php" class="text-white me-2">Clienti</a>
+    <a href="/php/vendite/vendita.php" class="text-white me-2">Vendita</a>
+    <a href="/php/admin/report_vendite.php" class="text-white me-2">Report Vendite</a>
+    <a href="/php/admin/report_giacenze.php" class="text-white me-2">Giacenze</a>
+    <a href="/php/gestione/spostamenti.php" class="text-white me-2">Spostamenti</a>
+    <a href="/php/auth/logout.php" class="text-white">Logout</a>
+    </div>
 </nav>
 
 <div class="container mt-4">
