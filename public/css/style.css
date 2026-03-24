@@ -1,0 +1,18 @@
+body {
+    background-color: #cdc2b7;
+    color: #797521;
+}
+
+.navbar {
+    background-color: #8f892b;
+}
+
+.btn-primary {
+    background-color: #a28b2e;
+    border: none;
+}
+
+.card {
+    background-color: #9ca9a9;
+    border: none;
+}
