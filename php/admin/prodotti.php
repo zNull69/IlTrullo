@@ -2,6 +2,8 @@
 require_once(__DIR__ . "/../config/db.php");
 require_once(__DIR__ . "/../common/header.php");
 
+require_once(__DIR__ . "/../common/auth_admin.php");
+
 if ($_POST) {
 
     $nome = $_POST['nome'];
@@ -60,6 +62,4 @@ $lista = mysqli_query($conn, "SELECT p.*, c.nome as categoria FROM prodotti p
 </tr>
 <?php } ?>
 </table>
-<?php require_once("../common/footer.php"); ?>
-
 <?php require_once("../common/footer.php"); ?>

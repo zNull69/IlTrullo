@@ -33,6 +33,13 @@ CREATE TABLE clienti (
     occasionale BOOLEAN DEFAULT FALSE
 );
 
+CREATE TABLE luoghi (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    tipo VARCHAR(50),
+    attivo BOOLEAN DEFAULT TRUE
+);
+
 CREATE TABLE acquisti (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT,
@@ -41,8 +48,8 @@ CREATE TABLE acquisti (
     totale DECIMAL(10,2),
     totale_pagato DECIMAL(10,2),
     note TEXT,
-    FOREIGN KEY (id_cliente) REFERENCES clienti(id)
-    -- FK id_luogo aggiunta dopo la creazione di luoghi
+    FOREIGN KEY (id_cliente) REFERENCES clienti(id),
+    FOREIGN KEY (id_luogo) REFERENCES luoghi(id)
 );
 
 CREATE TABLE righe_acquisto (
@@ -54,13 +61,6 @@ CREATE TABLE righe_acquisto (
     omaggio BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_acquisto) REFERENCES acquisti(id),
     FOREIGN KEY (id_prodotto) REFERENCES prodotti(id)
-);
-
-CREATE TABLE luoghi (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL UNIQUE,
-    tipo VARCHAR(50),
-    attivo BOOLEAN DEFAULT TRUE
 );
 
 INSERT INTO luoghi(id, nome, tipo) VALUES (1, 'Dispensa', 'magazzino');

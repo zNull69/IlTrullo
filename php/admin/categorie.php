@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/../config/db.php");
 require_once(__DIR__ . "/../common/header.php");
+require_once(__DIR__ . "/../common/auth_admin.php");
 
 if (isset($_POST['nome'])) {
     $nome = mysqli_real_escape_string($conn, $_POST['nome']);
