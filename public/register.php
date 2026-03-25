@@ -18,7 +18,7 @@
             <div class="alert alert-danger mb-3"><?= htmlspecialchars($errore) ?></div>
         <?php endif; ?>
  
-        <form action="/php/auth/register.php" method="POST" autocomplete="off">
+        <form action="../php/auth/register.php" method="POST" autocomplete="off">
             <div class="mb-3">
                 <label class="form-label" for="username">Username</label>
                 <input class="form-control" id="username" name="username" required autofocus>
@@ -37,5 +37,6 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

@@ -28,24 +28,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/style.css">
-</head>
-<body class="container mt-5">
-    <h2>Login — Il Trullo</h2>
-    <?php if ($errore): ?>
-        <div class="alert alert-danger"><?= $errore ?></div>
-    <?php endif; ?>
-    <form method="POST">
-        <input class="form-control mb-2" name="username" placeholder="Username" required>
-        <input type="password" class="form-control mb-2" name="password" placeholder="Password" required>
-        <button class="btn btn-primary w-100">Accedi</button>
-    </form>
-    <div class="mt-2">
-        <a href="/public/register.php">Non hai un account? Registrati</a>
-    </div>
-</body>
-</html>
