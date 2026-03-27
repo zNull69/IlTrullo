@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once("../config/db.php");
+require_once(__DIR__ . "/../php/config/db.php");
 
 $errore = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = mysqli_real_escape_string($conn, $_POST['username']);
     $pass = hash('sha256', $_POST['password']);
 
@@ -13,9 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_num_rows($check) > 0) {
         $errore = "Username già esistente.";
     } else {
-        mysqli_query($conn, "INSERT INTO utenti(username, password, ruolo)
-            VALUES('$user', '$pass', 'utente')");
-        header("Location: /php/auth/login.php");
+        
+        mysqli_query($conn,
+            "INSERT INTO utenti(username, password, ruolo)
+             VALUES('$user', '$pass', 'utente')");
+        mysqli_query($conn,
+            "INSERT INTO clienti(nome, nickname, occasionale)
+             VALUES('$user', '$user', FALSE)");
+
+        header("Location: /public/index.php?registrato=1");
         exit;
     }
 }
@@ -30,40 +36,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <main>
-        <div class="content-side">
-            <div class="auth-wrapper">
-                <div class="auth-card">
-                    <span class="auth-logo">Il Trullo</span>
-                    <h1>Registrazione</h1>
-                    <p class="auth-sub">Crea un nuovo account.</p>
-            
-                    <?php if (!empty($errore)): ?>
-                        <div class="alert alert-danger mb-3"><?= htmlspecialchars($errore) ?></div>
-                    <?php endif; ?>
-            
-                    <form method="POST" autocomplete="off">
-                        <div class="mb-3">
-                            <label class="form-label" for="username">Username</label>
-                            <input class="form-control" id="username" name="username" required autofocus>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label" for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Registrati</button>
-                    </form>
-            
-                    <hr class="my-3">
-                    <div class="text-center">
-                        <a href="index.php">Hai già un account? Accedi</a>
+<main>
+    <div class="content-side">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <span class="auth-logo">Il Trullo</span>
+                <h1>Registrazione</h1>
+                <p class="auth-sub">Crea un nuovo account.</p>
+
+                <?php if ($errore): ?>
+                    <div class="alert alert-danger mb-3"><?= htmlspecialchars($errore) ?></div>
+                <?php endif; ?>
+
+                <form method="POST" autocomplete="off">
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username</label>
+                        <input class="form-control" id="username" name="username" required autofocus>
                     </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Registrati</button>
+                </form>
+
+                <hr class="my-3">
+                <div class="text-center">
+                    <a href="index.php">Hai già un account? Accedi</a>
                 </div>
             </div>
         </div>
-        <div class="side-img"></div>
-    </main>
+    </div>
+    <div class="side-img"></div>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/script.js"></script>
 </body>
 </html>
