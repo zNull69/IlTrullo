@@ -38,9 +38,6 @@ require_once(__DIR__ . "/../common/auth_admin.php");
 
 <p class="dash-section-label">Vendite e report</p>
 <div class="dash-grid">
-    <a href="/php/vendite/vendite.php" class="dash-tile">
-        <span class="dash-tile-bar"></span>Nuova vendita
-    </a>
     <a href="/php/admin/report_vendite.php" class="dash-tile">
         <span class="dash-tile-bar"></span>Report vendite
     </a>

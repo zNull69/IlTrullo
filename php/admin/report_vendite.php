@@ -3,71 +3,46 @@ require_once(__DIR__ . "/../config/db.php");
 require_once(__DIR__ . "/../common/header.php");
 require_once(__DIR__ . "/../common/auth_admin.php");
 
-$where = "1=1";
-
-if (!empty($_GET['prodotto'])) {
-    $where .= " AND r.id_prodotto=".(int)$_GET['prodotto'];
-}
-if (!empty($_GET['cliente'])) {
-    $where .= " AND a.id_cliente=".(int)$_GET['cliente'];
-}
-if (!empty($_GET['data_inizio'])) {
-    $d = mysqli_real_escape_string($conn, $_GET['data_inizio']);
-    $where .= " AND a.data_acquisto >= '$d'";
-}
-if (!empty($_GET['data_fine'])) {
-    $d = mysqli_real_escape_string($conn, $_GET['data_fine']);
-    $where .= " AND a.data_acquisto <= '$d'";
-}
-
 $query = "
-SELECT a.data_acquisto, p.nome, r.quantita, r.prezzo_unitario
+SELECT 
+    a.id_cliente,
+    c.nome AS nome_cliente,
+    a.data_acquisto,
+    p.nome AS nome_prodotto,
+    r.quantita,
+    r.prezzo_unitario
 FROM righe_acquisto r
-JOIN acquisti a ON r.id_acquisto=a.id
-JOIN prodotti p ON r.id_prodotto=p.id
-WHERE $where
+JOIN acquisti a ON r.id_acquisto = a.id
+JOIN prodotti p ON r.id_prodotto = p.id
+JOIN clienti c ON a.id_cliente = c.id
+ORDER BY a.data_acquisto DESC
 ";
 
-$res = mysqli_query($conn,$query);
-
-$prodotti = mysqli_query($conn,"SELECT * FROM prodotti");
-$clienti = mysqli_query($conn,"SELECT * FROM clienti");
+$res = mysqli_query($conn, $query);
 ?>
 
 <h3>Report Vendite</h3>
 
-<form method="GET">
-<select name="prodotto" class="form-control mb-2">
-<option value="">Tutti i prodotti</option>
-<?php while($p=mysqli_fetch_assoc($prodotti)){ ?>
-<option value="<?= $p['id'] ?>"><?= $p['nome'] ?></option>
-<?php } ?>
-</select>
-
-<select name="cliente" class="form-control mb-2">
-<option value="">Tutti i clienti</option>
-<?php while($c=mysqli_fetch_assoc($clienti)){ ?>
-<option value="<?= $c['id'] ?>"><?= $c['nome'] ?></option>
-<?php } ?>
-</select>
-
-<input type="date" name="data_inizio" class="form-control mb-2">
-<input type="date" name="data_fine" class="form-control mb-2">
-
-<button class="btn btn-primary">Filtra</button>
-</form>
-
 <table class="table mt-3">
-<tr><th>Data</th><th>Prodotto</th><th>Quantità</th><th>Prezzo</th></tr>
+    <tr>
+        <th>Id Cliente</th>
+        <th>Nome</th>
+        <th>Data</th>
+        <th>Prodotto</th>
+        <th>Quantità</th>
+        <th>Prezzo</th>
+    </tr>
 
-<?php while($r=mysqli_fetch_assoc($res)){ ?>
-<tr>
-<td><?= $r['data_acquisto'] ?></td>
-<td><?= $r['nome'] ?></td>
-<td><?= $r['quantita'] ?></td>
-<td><?= $r['prezzo_unitario'] ?></td>
-</tr>
-<?php } ?>
+    <?php while ($r = mysqli_fetch_assoc($res)) { ?>
+        <tr>
+            <td><?= htmlspecialchars($r['id_cliente']) ?></td>
+            <td><?= htmlspecialchars($r['nome_cliente']) ?></td>
+            <td><?= htmlspecialchars($r['data_acquisto']) ?></td>
+            <td><?= htmlspecialchars($r['nome_prodotto']) ?></td>
+            <td><?= htmlspecialchars($r['quantita']) ?></td>
+            <td><?= htmlspecialchars($r['prezzo_unitario']) ?></td>
+        </tr>
+    <?php } ?>
 </table>
 
 <?php require_once("../common/footer.php"); ?>

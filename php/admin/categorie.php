@@ -8,7 +8,7 @@ if (isset($_POST['nome'])) {
     mysqli_query($conn, "INSERT IGNORE INTO categorie(nome) VALUES('$nome')");
 }
 
-$res = mysqli_query($conn, "SELECT * FROM categorie");
+$res = mysqli_query($conn, "SELECT * FROM categorie, ORDER BY id");
 ?>
 
 <h3>Categorie</h3>

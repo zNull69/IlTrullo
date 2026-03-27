@@ -163,7 +163,7 @@ while ($r = mysqli_fetch_assoc($res)):
         <form method="POST" class="prodotto-form">
             <input type="hidden" name="id_prodotto" value="<?= $r['id'] ?>">
             <div class="prodotto-form-row">
-                <input type="number" name="quantita" min="0.1" step="0.1"
+                <input type="number" name="quantita" min="0.5" step="0.5"
                        class="form-control form-control-sm"
                        placeholder="Qtà" required>
                 <button type="submit" class="btn btn-primary btn-sm">Acquista</button>
